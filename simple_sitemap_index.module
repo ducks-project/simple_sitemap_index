@@ -5,7 +5,9 @@
  * Hooks.
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\simple_sitemap_index\HookFormManager;
 use Drupal\simple_sitemap_index\HookHelpManager;
 
 /**
@@ -15,4 +17,13 @@ function simple_sitemap_index_help($route_name, RouteMatchInterface $route_match
   return \Drupal::service('class_resolver')
     ->getInstanceFromDefinition(HookHelpManager::class)
     ->help($route_name, $route_match);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function simple_sitemap_index_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(HookFormManager::class)
+    ->alter($form, $form_state, $form_id);
 }

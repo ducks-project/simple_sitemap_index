@@ -8,8 +8,8 @@ INTRODUCTION
 ------------
 
 The sitemap index is described as follow:
-https://www.sitemaps.org/protocol.html#index
-https://developers.google.com/search/docs/advanced/sitemaps/large-sitemaps
+[Sitemap index](https://www.sitemaps.org/protocol.html#index)
+[Google explanation](https://developers.google.com/search/docs/advanced/sitemaps/large-sitemaps)
 
 
  * For a full description of the module, visit the project page:
@@ -34,7 +34,24 @@ INSTALLATION
 CONFIGURATION
 -------------
 
-No configuration needed.
+In the backend area: `/admin/config/search/simplesitemap/variants` add a
+new: `variants` with a new type: `index`
+
+Example for a website with 2 sitemap and relative index:
+```php
+pages | default_hreflang | Pages
+products | default_hreflang | Products
+index | index | Sitemap index
+```
+
+To use the `Sitemap index` as the default sitemap it is necessary
+to set the `Default sitemap variant` with the value:
+`Sitemap index` in the advanced settings:
+`/admin/config/search/simplesitemap/settings`
+
+After hit the button: `Rebuild queue & generate` if everything worked
+correctly, the value: `published` will be displayed
+in the Status item of the line: `Sitemap index`
 
 
 TROUBLESHOOTING
