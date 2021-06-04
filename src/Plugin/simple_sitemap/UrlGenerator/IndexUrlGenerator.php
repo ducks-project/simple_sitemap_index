@@ -80,41 +80,44 @@ class IndexUrlGenerator extends EntityUrlGeneratorBase {
   /**
    * {@inheritdoc}
    */
-  public function getDataSets() {
+  public function getDataSets() : array {
     $sitemap_settings = [
       'base_url' => $this->generator->getSetting('base_url', ''),
       'default_variant' => $this->generator->getSetting('default_variant', NULL),
     ];
-    $sitemap_types = $this->generator->getSitemapManager()->getSitemapTypes();
+    $sitemap_manager = $this->generator->getSitemapManager();
+    $sitemap_types = $sitemap_manager->getSitemapTypes();
     $sitemap_published = $this->sitemapRequester->getPublishedSitemaps();
 
     foreach ($sitemap_types as $type_name => $type_definition) {
-      $variants = $this->generator->getSitemapManager()->getSitemapVariants($type_name, FALSE);
+      $variants = $sitemap_manager->getSitemapVariants($type_name, FALSE);
       if (!empty($variants)) {
-        $sitemap_generator = $this->generator->getSitemapGenerator($type_definition['sitemapGenerator']);
-        $sitemap_generator->setSettings($settings);
+        $sitemap_generator = $sitemap_manager->getSitemapGenerator($type_definition['sitemapGenerator']);
+        $sitemap_generator->setSettings($sitemap_settings);
         if ('index' !== $type_name) {
           foreach ($variants as $variant_name => $variant_definition) {
             if (isset($sitemap_published[$variant_name])) {
-              $data_set[$variant_name]['type'] = $type_name;
-              $data_set[$variant_name]['definition'] = $variant_definition;
-              $data_set[$variant_name]['url'] = $sitemap_generator->setSitemapVariant($variant_name)->getSitemapUrl();
+              $data_sets[$variant_name]['type'] = $type_name;
+              $data_sets[$variant_name]['definition'] = $variant_definition;
+              $data_sets[$variant_name]['url'] = $sitemap_generator->setSitemapVariant($variant_name)->getSitemapUrl();
             }
           }
         }
       }
     }
 
-    return $data_set ?? [];
+    return $data_sets ?? [];
   }
 
   /**
    * {@inheritdoc}
    */
   protected function processDataSet($data_set) {
+    $date_time = new DrupalDateTime();
+
     return [
       'loc' => $data_set['url'],
-      'lastmod' => DrupalDateTime::createFromFormat('c', 'now'),
+      'lastmod' => $date_time->format('c'),
     ];
   }
 
