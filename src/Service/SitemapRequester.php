@@ -63,7 +63,7 @@ QUERY;
         $this->dataSitemaps[$line->type] = [
           'status' => (isset($this->dataSitemaps[$line->type])) ? static::SITEMAP_RUNNING : (int) $line->status,
           'link_count' => (int) $line->link_count,
-        ]
+        ];
       }
     }
 
