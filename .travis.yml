@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+  - 7.4
+  - 8.0
+
+before_script:
+  - composer require --dev phpunit/phpunit ^5
+  - composer require --dev php-coveralls/php-coveralls ^1
+  - composer require --dev atoum/atoum ^3
+  - composer install --no-interaction --optimize-autoloader
+script:
+  - mkdir -p build/logs
+  - phpunit --version
+
+#after_success:
+#  - travis_retry php vendor/bin/php-coveralls

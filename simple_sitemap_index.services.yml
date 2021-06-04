@@ -1,0 +1,5 @@
+services:
+  simple_sitemap_index.requester:
+    class: Drupal\simple_sitemap_index\Service\SitemapRequester
+    arguments:
+      - '@database'

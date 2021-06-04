@@ -1,0 +1,15 @@
+name: Simple XML Sitemap Index
+description: Provide a Sitemap Index Variant for Simple XML sitemap.
+package: SEO
+
+type: module
+core_version_requirement: ^8.8 || ^9
+php: 7.2
+
+dependencies:
+  - drupal:simple_sitemap (>=3.0)
+
+test_dependencies:
+  - php:php
+
+hidden: false

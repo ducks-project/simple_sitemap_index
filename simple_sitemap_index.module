@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Hooks.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\simple_sitemap_index\HookHelpManager;
+
+/**
+ * Implements hook_help().
+ */
+function simple_sitemap_index_help($route_name, RouteMatchInterface $route_match) {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(HookHelpManager::class)
+    ->help($route_name, $route_match);
+}
