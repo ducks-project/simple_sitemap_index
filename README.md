@@ -1,0 +1,1 @@
+# simple_sitemap_index
